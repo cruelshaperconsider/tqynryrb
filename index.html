@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE Gift Store — премиальные подарки</title>
+  <style>
+    :root { --black: #070707; --text: #121212; --pink: #e84f7d; --shadow: 0 14px 38px rgba(0,0,0,.08); }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: var(--text); background: #fff; }
+    .topbar { position: sticky; top: 0; z-index: 1000; height: 64px; background: var(--black); color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 38px; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+    .logo { color: #fff; text-decoration: none; font-size: 24px; font-weight: bold; }
+    .nav a { color: #fff; text-decoration: none; font-size: 14px; cursor: pointer; margin-left: 20px; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 40px 36px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-bottom: 40px; }
+    .card { background: #fff; border-radius: 10px; border: 1px solid #eee; overflow: hidden; transition: .22s ease; padding: 15px; }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .photo { aspect-ratio: 1/1; overflow: hidden; border-radius: 8px; margin-bottom: 12px; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; }
+    .title { font-size: 14px; font-weight: 800; margin-bottom: 7px; }
+    .price { font-size: 17px; font-weight: 900; }
+    .buy { width: 100%; background: #080808; color: #fff; border: 0; border-radius: 6px; padding: 10px; cursor: pointer; margin-top: 10px; }
+    .buy:hover { background: var(--pink); }
+    @media(max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#">LUXE GIFTS</a>
+    <nav class="nav">
+      <a onclick="document.getElementById('flowers').scrollIntoView()">Букеты</a>
+      <a onclick="document.getElementById('strawberries').scrollIntoView()">Клубника</a>
+      <a onclick="document.getElementById('toys').scrollIntoView()">Игрушки</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 id="flowers">Букеты</h2>
+    <div class="grid" id="flowersGrid"></div>
+
+    <h2 id="strawberries">Клубника в шоколаде</h2>
+    <div class="grid" id="strawberriesGrid"></div>
+
+    <h2 id="toys">Игрушки</h2>
+    <div class="grid" id="toysGrid"></div>
+  </main>
+
+  <script>
+    const FLOWERS = [
+      { name: "Ягодный комплимент", price: 2500, img: "https://i.ibb.co/KpTDRJ6d/IMG-5840.jpg" },
+      { name: "Шоколадный микс", price: 2800, img: "https://i.ibb.co/cc2ryt5f/IMG-5839.jpg" },
+      { name: "Клубничный восторг", price: 3000, img: "https://i.ibb.co/mC7xBHtB/IMG-5838.jpg" },
+      { name: "Премиум сет", price: 3500, img: "https://i.ibb.co/8nGWZjhJ/IMG-5837.jpg" }
+    ];
+
+    const STRAWBERRIES = [
+      { name: "Клубника в молочном", price: 2990, img: "https://i.ibb.co/KpTDRJ6d/IMG-5840.jpg" },
+      { name: "Клубника в белом", price: 2590, img: "https://i.ibb.co/cc2ryt5f/IMG-5839.jpg" },
+      { name: "Ассорти клубники", price: 3490, img: "https://i.ibb.co/mC7xBHtB/IMG-5838.jpg" },
+      { name: "Клубника (сердце)", price: 3990, img: "https://i.ibb.co/8nGWZjhJ/IMG-5837.jpg" }
+    ];
+
+    const TOYS = [
+      { name: "Плюшевый мишка", price: 2100, img: "https://i.ibb.co/Jj15bkdV/IMG-5843.jpg" },
+      { name: "Большой мишка", price: 2900, img: "https://i.ibb.co/whd73Y1c/IMG-5842.jpg" },
+      { name: "Мишка в банте", price: 2400, img: "https://i.ibb.co/wbYswJx/IMG-5844.jpg" },
+      { name: "Набор мишек", price: 3200, img: "https://i.ibb.co/nsb2YGL5/IMG-5841.jpg" }
+    ];
+
+    function render(list, id) {
+      document.getElementById(id).innerHTML = list.map(p => `
+        <article class="card">
+          <div class="photo"><img src="${p.img}" alt="${p.name}"></div>
+          <div class="title">${p.name}</div>
+          <div class="price">${p.price} ₽</div>
+          <button class="buy" onclick="alert('Добавлено в корзину: ${p.name}')">В корзину</button>
+        </article>
+      `).join("");
+    }
+    
+    render(FLOWERS, 'flowersGrid');
+    render(STRAWBERRIES, 'strawberriesGrid');
+    render(TOYS, 'toysGrid');
+  </script>
+</body>
+</html>
