@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE FLOWERS — премиальные букеты</title>
+  <style>
+    :root {
+      --black:#070707;
+      --text:#111;
+      --muted:#747474;
+      --pink:#e84f7d;
+      --pink-soft:#fff1f5;
+      --line:#eeeeee;
+      --bg:#fdfbfb;
+      --card:#ffffff;
+      --shadow:0 14px 38px rgba(0,0,0,.08);
+      --radius:18px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    button, select { font-family:inherit; }
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:1000;
+      min-height:66px;
+      padding:0 34px;
+      background:var(--black);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      box-shadow:0 8px 28px rgba(0,0,0,.18);
+    }
+    .brand {
+      color:#fff;
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:2px;
+      font-size:22px;
+      line-height:1;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .brand span {
+      color:var(--pink);
+    }
+    .nav {
+      display:flex;
+      gap:22px;
+      align-items:center;
+    }
+    .nav a {
+      color:rgba(255,255,255,.78);
+      text-decoration:none;
+      font-size:13px;
+      font-weight:650;
+    }
+    .nav a:hover { color:#fff; }
+    .actions {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .city-select {
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:10px;
+      padding:9px 11px;
+      outline:none;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .city-select option { color:#111; }
+    .icon-btn {
+      position:relative;
+      width:40px;
+      height:40px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:50%;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      cursor:pointer;
+      font-size:18px;
+    }
+    .count {
+      position:absolute;
+      top:-6px;
+      right:-7px;
+      min-width:18px;
+      height:18px;
+      padding:0 5px;
+      border-radius:999px;
+      background:var(--pink);
+      color:#fff;
+      font-size:10px;
+      font-weight:900;
+      line-height:18px;
+    }
+    .hero {
+      max-width:1280px;
+      margin:28px auto 36px;
+      padding:0 34px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .hero-text {
+      background:#fbf0f3;
+      border-radius:28px;
+      padding:60px 54px;
+      min-height:360px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-text:after {
+      content:"";
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:rgba(232,79,125,.12);
+      right:-70px;
+      bottom:-80px;
+    }
+    .eyebrow {
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-weight:800;
+      font-size:12px;
+      margin-bottom:14px;
+    }
+    h1 {
+      margin:0 0 16px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:48px;
+      line-height:1.05;
+      letter-spacing:-1px;
+      text-transform:uppercase;
+      max-width:620px;
+    }
+    .hero-text p {
+      margin:0 0 28px;
+      color:#555;
+      font-size:16px;
+      line-height:1.55;
+      max-width:520px;
+    }
+    .primary {
+      width:max-content;
+      border:0;
+      background:var(--pink);
+      color:#fff;
+      border-radius:7px;
+      padding:15px 30px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      cursor:pointer;
+      box-shadow:0 12px 26px rgba(232,79,125,.28);
+    }
+    .hero-img {
+      min-height:360px;
+      border-radius:28px;
+      overflow:hidden;
+      background:#eee;
+      box-shadow:var(--shadow);
+    }
+    .hero-img img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .container {
+      max-width:1280px;
+      margin:0 auto;
+      padding:0 34px 34px;
+    }
+    .section-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:14px;
+      margin:0 0 20px;
+      border-bottom:1px solid var(--line);
+      padding-bottom:14px;
+    }
+    .section-head h2 {
+      margin:0;
+      font-size:26px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .section-head p {
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+    .card {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:0 8px 28px rgba(0,0,0,.045);
+      transition:.22s;
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+    .card:hover {
+      transform:translateY(-5px);
+      box-shadow:var(--shadow);
+    }
+    .photo {
+      position:relative;
+      aspect-ratio:1/1;
+      background:#f6f6f6;
+      overflow:hidden;
+    }
+    .photo img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:.3s;
+    }
+    .card:hover .photo img { transform:scale(1.04); }
+    .badge {
+      position:absolute;
+      top:12px;
+      left:12px;
+      background:var(--pink);
+      color:#fff;
+      font-size:10px;
+      font-weight:900;
+      padding:5px 9px;
+      border-radius:7px;
+      text-transform:uppercase;
+    }
+    .fav {
+      position:absolute;
+      top:10px;
+      right:10px;
+      width:34px;
+      height:34px;
+      border:0;
+      border-radius:50%;
+      background:rgba(255,255,255,.92);
+      color:#c9c9c9;
+      cursor:pointer;
+      font-size:17px;
+      box-shadow:0 5px 14px rgba(0,0,0,.08);
+    }
+    .fav.active { color:#ff3d68; }
+    .body {
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      flex:1;
+    }
+    .title {
+      font-weight:900;
+      font-size:15px;
+      margin:0 0 6px;
+      line-height:1.25;
+    }
+    .desc {
+      color:#666;
+      font-size:13px;
+      line-height:1.4;
+      margin:0 0 14px;
+      min-height:38px;
+    }
+    .card-foot {
+      margin-top:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .price {
+      font-weight:950;
+      font-size:17px;
+      white-space:nowrap;
+    }
+    .buy {
+      border:0;
+      background:#111;
+      color:#fff;
+      width:40px;
+      height:40px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:17px;
+      transition:.2s;
+    }
+    .buy:hover { background:var(--pink); }
+    .extras {
+      margin:46px 0;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+    .panel {
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 8px 28px rgba(0,0,0,.045);
+    }
+    .panel h3 {
+      margin:0 0 8px;
+      font-size:22px;
+    }
+    .panel-note {
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .extra-list {
+      display:grid;
+      gap:10px;
+    }
+    .extra-option {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid #f1dfe5;
+      background:#fff8fa;
+      border-radius:14px;
+      padding:12px 13px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:14px;
+    }
+    .extra-option input {
+      width:18px;
+      height:18px;
+      accent-color:var(--pink);
+    }
+    .reviews {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .review {
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 8px 28px rgba(0,0,0,.04);
+    }
+    .stars {
+      color:#ffb400;
+      letter-spacing:2px;
+      margin-bottom:9px;
+    }
+    .review p {
+      color:#333;
+      line-height:1.55;
+      font-size:14px;
+      margin:0 0 12px;
+    }
+    .features {
+      margin-top:40px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+    .feature {
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .feature-icon { font-size:26px; }
+    .feature b { display:block; font-size:14px; }
+    .feature span { color:var(--muted); font-size:12px; }
+    .footer {
+      background:#0b0b0b;
+      color:#fff;
+      margin-top:48px;
+      padding:28px 34px;
+      text-align:center;
+    }
+    .footer a { color:#fff; font-weight:900; text-decoration:none; }
+    .drawer-bg {
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.48);
+      opacity:0;
+      visibility:hidden;
+      transition:.22s;
+      z-index:1400;
+    }
+    .drawer-bg.open { opacity:1; visibility:visible; }
+    .drawer {
+      position:fixed;
+      top:0;
+      right:-410px;
+      bottom:0;
+      width:410px;
+      max-width:92vw;
+      background:#fff;
+      z-index:1500;
+      transition:.25s;
+      display:flex;
+      flex-direction:column;
+      box-shadow:-12px 0 36px rgba(0,0,0,.2);
+    }
+    .drawer.open { right:0; }
+    .drawer-head {
+      padding:22px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .drawer-head h3 { margin:0; font-size:18px; }
+    .close {
+      border:0;
+      background:transparent;
+      font-size:30px;
+      cursor:pointer;
+      color:#777;
+    }
+    .drawer-content {
+      flex:1;
+      overflow:auto;
+      padding:20px;
+    }
+    .cart-row {
+      border-bottom:1px dashed #ddd;
+      padding:0 0 14px;
+      margin-bottom:14px;
+      display:flex;
+      gap:12px;
+      justify-content:space-between;
+    }
+    .cart-row b {
+      display:block;
+      font-size:14px;
+      margin-bottom:5px;
+    }
+    .cart-row small { color:var(--muted); }
+    .qty {
+      display:flex;
+      gap:7px;
+      align-items:center;
+      margin-top:8px;
+    }
+    .qty button {
+      width:25px;
+      height:25px;
+      border:1px solid #ddd;
+      background:#fff;
+      border-radius:6px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .remove {
+      border:0;
+      background:transparent;
+      color:#cc4444;
+      cursor:pointer;
+      font-size:12px;
+    }
+    .drawer-foot {
+      border-top:1px solid var(--line);
+      padding:20px;
+      background:#fafafa;
+    }
+    .total {
+      display:flex;
+      justify-content:space-between;
+      font-weight:950;
+      font-size:18px;
+      margin-bottom:14px;
+    }
+    .wa {
+      width:100%;
+      border:0;
+      background:#25d366;
+      color:#fff;
+      border-radius:10px;
+      padding:15px;
+      font-weight:950;
+      cursor:pointer;
+      font-size:15px;
+    }
+    .empty {
+      color:var(--muted);
+      text-align:center;
+      padding:46px 10px;
+      line-height:1.5;
+    }
+    @media(max-width:1050px) {
+      .nav { display:none; }
+      .hero { grid-template-columns:1fr; }
+      .hero-img { min-height:260px; }
+      .grid { grid-template-columns:repeat(3,1fr); }
+      .features { grid-template-columns:repeat(2,1fr); }
+    }
+    @media(max-width:760px) {
+      .topbar {
+        padding:10px 14px;
+        flex-wrap:wrap;
+      }
+      .brand { font-size:20px; }
+      .actions { margin-left:auto; }
+      .city-select {
+        order:3;
+        width:100%;
+      }
+      .hero, .container {
+        padding-left:14px;
+        padding-right:14px;
+      }
+      .hero {
+        margin-top:18px;
+      }
+      .hero-text {
+        padding:34px 22px;
+        min-height:auto;
+        border-radius:20px;
+      }
+      h1 { font-size:34px; }
+      .hero-img { display:none; }
+      .grid { grid-template-columns:repeat(2,1fr); gap:14px; }
+      .title { font-size:13px; }
+      .desc { font-size:12px; min-height:50px; }
+      .price { font-size:14px; }
+      .buy { width:34px; height:34px; }
+      .extras { grid-template-columns:1fr; }
+      .reviews { grid-template-columns:1fr; }
+      .features { grid-template-columns:1fr; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">LUXE<span>FLOWERS</span></a>
+    <nav class="nav">
+      <a href="#bouquets">Букеты</a>
+      <a href="#extras">Дополнения</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="actions">
+      <select class="city-select" id="citySelect" aria-label="Выбор города">
+        <option value="Москва">📍 Москва</option>
+        <option value="Санкт-Петербург">📍 Санкт-Петербург</option>
+        <option value="Краснодар">📍 Краснодар</option>
+        <option value="Екатеринбург">📍 Екатеринбург</option>
+        <option value="Казань">📍 Казань</option>
+        <option value="Сочи">📍 Сочи</option>
+        <option value="Другой город">📍 Другой город</option>
+      </select>
+      <button class="icon-btn" onclick="openFav()" aria-label="Избранное">♡<span class="count" id="favCount">0</span></button>
+      <button class="icon-btn" onclick="openCart()" aria-label="Корзина">🛒<span class="count" id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">Премиальная цветочная мастерская</div>
+      <h1>Цветы, которые говорят за вас</h1>
+      <p>Свежие букеты, быстрая доставка, красивые подарочные дополнения и оформление заказа прямо в WhatsApp.</p>
+      <button class="primary" onclick="document.getElementById('bouquets').scrollIntoView()">Выбрать букет</button>
+    </div>
+    <div class="hero-img">
+      <img src="images/bouquet-01.jpg" alt="Премиальный букет">
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="bouquets">
+      <div class="section-head">
+        <div>
+          <h2>Букеты</h2>
+          <p>Все фото взяты из вашего архива, поэтому на сайте будут отображаться реальные картинки.</p>
+        </div>
+      </div>
+      <div class="grid" id="productGrid"></div>
+    </section>
+
+    <section class="extras" id="extras">
+      <div class="panel">
+        <h3>🎁 Добавить к букету</h3>
+        <p class="panel-note">Цена дополнений уточняется администратором при оформлении заказа.</p>
+        <div class="extra-list">
+          <label class="extra-option"><input type="checkbox" value="Коробка вкусных конфет 🍬"> Коробка вкусных конфет</label>
+          <label class="extra-option"><input type="checkbox" value="Клубника в шоколаде 🍓"> Клубника в шоколаде</label>
+          <label class="extra-option"><input type="checkbox" value="Мягкая игрушка 🧸"> Мягкая игрушка</label>
+          <label class="extra-option"><input type="checkbox" value="Открытка с пожеланием 💌"> Открытка с пожеланием</label>
+          <label class="extra-option"><input type="checkbox" value="Гелевые шарики 🎈"> Гелевые шарики</label>
+          <label class="extra-option"><input type="checkbox" value="VIP-набор: букет + конфеты + подарок 🧺"> VIP-набор: букет + конфеты + подарок</label>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>💬 Быстрый заказ</h3>
+        <p class="panel-note">Добавьте букет в корзину, выберите город и нажмите “Заказать в WhatsApp”. В сообщение автоматически попадут товары, количество, сумма и дополнения.</p>
+        <button class="primary" onclick="openCart()">Открыть корзину</button>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="section-head">
+        <div>
+          <h2>Отзывы клиентов</h2>
+          <p>Блок доверия для премиального вида сайта.</p>
+        </div>
+      </div>
+      <div class="reviews">
+        <div class="review"><div class="stars">★★★★★</div><p>Букет выглядел дорого, цветы свежие, доставили аккуратно и быстро.</p><b>Алина</b></div>
+        <div class="review"><div class="stars">★★★★★</div><p>Заказывал сюрприз через WhatsApp. Всё оформили красиво, девушка была в восторге.</p><b>Марат</b></div>
+        <div class="review"><div class="stars">★★★★★</div><p>Фото на сайте соответствуют реальным букетам. Очень приятный сервис.</p><b>Екатерина</b></div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature"><div class="feature-icon">🌸</div><div><b>Свежие цветы</b><span>Поставки каждый день</span></div></div>
+      <div class="feature"><div class="feature-icon">🚚</div><div><b>Быстрая доставка</b><span>Доставка от 1 часа</span></div></div>
+      <div class="feature"><div class="feature-icon">🎁</div><div><b>Бережная упаковка</b><span>Каждый букет как подарок</span></div></div>
+      <div class="feature"><div class="feature-icon">🛡️</div><div><b>Гарантия качества</b><span>Поможем подобрать лучший вариант</span></div></div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contacts">
+    <div><b>LUXE FLOWERS / Магия Цветов</b></div>
+    <div style="margin-top:8px;">WhatsApp: <a href="https://wa.me/79280126881">+7 928 012-68-81</a></div>
+  </footer>
+
+  <div class="drawer-bg" id="drawerBg" onclick="closeDrawers()"></div>
+
+  <aside class="drawer" id="cartDrawer">
+    <div class="drawer-head">
+      <h3>Корзина</h3>
+      <button class="close" onclick="closeDrawers()">×</button>
+    </div>
+    <div class="drawer-content" id="cartContent"></div>
+    <div class="drawer-foot">
+      <div class="total"><span>Итого:</span><span id="total">0 ₽</span></div>
+      <button class="wa" onclick="sendWhatsApp()">💬 Заказать в WhatsApp</button>
+    </div>
+  </aside>
+
+  <aside class="drawer" id="favDrawer">
+    <div class="drawer-head">
+      <h3>Избранное</h3>
+      <button class="close" onclick="closeDrawers()">×</button>
+    </div>
+    <div class="drawer-content" id="favContent"></div>
+  </aside>
+
+  <script>
+    const WHATSAPP_PHONE = "79280126881";
+    const PRODUCTS = [
+      {
+            "id": 1,
+            "name": "Букет «Алые розы»",
+            "desc": "Красные розы в премиальной упаковке с атласной лентой",
+            "price": 5890,
+            "img": "images/bouquet-01.jpg",
+            "badge": "Хит"
+      },
+      {
+            "id": 2,
+            "name": "Нежный сухоцвет",
+            "desc": "Стильный пастельный букет для тёплого подарка",
+            "price": 2490,
+            "img": "images/bouquet-02.jpg",
+            "badge": ""
+      },
+      {
+            "id": 3,
+            "name": "Оранжевые розы",
+            "desc": "Яркие розы сочного оттенка для запоминающегося подарка",
+            "price": 4490,
+            "img": "images/bouquet-03.jpg",
+            "badge": ""
+      },
+      {
+            "id": 4,
+            "name": "Авторский микс",
+            "desc": "Розы, альстромерии и декоративные цветы в крафтовой упаковке",
+            "price": 5290,
+            "img": "images/bouquet-04.jpg",
+            "badge": "New"
+      },
+      {
+            "id": 5,
+            "name": "Розовые розы",
+            "desc": "Нежные розовые розы в стильной упаковке",
+            "price": 4990,
+            "img": "images/bouquet-05.jpg",
+            "badge": ""
+      },
+      {
+            "id": 6,
+            "name": "Радужная гипсофила",
+            "desc": "Воздушный букет из разноцветной гипсофилы",
+            "price": 3990,
+            "img": "images/bouquet-06.jpg",
+            "badge": ""
+      },
+      {
+            "id": 7,
+            "name": "Цветочный микс",
+            "desc": "Яркий микс сезонных цветов в насыщенных оттенках",
+            "price": 4890,
+            "img": "images/bouquet-07.jpg",
+            "badge": ""
+      },
+      {
+            "id": 8,
+            "name": "Корзина красных роз",
+            "desc": "Большая корзина красных роз для особого события",
+            "price": 7990,
+            "img": "images/bouquet-08.jpg",
+            "badge": "VIP"
+      },
+      {
+            "id": 9,
+            "name": "Нежная композиция",
+            "desc": "Белые и розовые цветы в элегантной упаковке",
+            "price": 4290,
+            "img": "images/bouquet-09.jpg",
+            "badge": ""
+      },
+      {
+            "id": 10,
+            "name": "Кремовый букет",
+            "desc": "Кремовые розы и эустома в белой упаковке",
+            "price": 4690,
+            "img": "images/bouquet-10.jpg",
+            "badge": ""
+      },
+      {
+            "id": 11,
+            "name": "Пионовидный букет",
+            "desc": "Пышные розовые пионы и нежные сезонные цветы",
+            "price": 6290,
+            "img": "images/bouquet-11.jpg",
+            "badge": "Хит"
+      },
+      {
+            "id": 12,
+            "name": "Гортензия Pink",
+            "desc": "Розовая и белая гортензия в премиальной упаковке",
+            "price": 6890,
+            "img": "images/bouquet-12.jpg",
+            "badge": "Premium"
+      },
+      {
+            "id": 13,
+            "name": "Голубая мечта",
+            "desc": "Белые и розовые кустовые розы в голубой упаковке",
+            "price": 5490,
+            "img": "images/bouquet-13.jpg",
+            "badge": ""
+      },
+      {
+            "id": 14,
+            "name": "Пастельный микс",
+            "desc": "Авторский букет с розами, эустомой и зеленью",
+            "price": 5790,
+            "img": "images/bouquet-14.jpg",
+            "badge": ""
+      },
+      {
+            "id": 15,
+            "name": "Нежная гербера",
+            "desc": "Белые и розовые цветы в голубой упаковке",
+            "price": 3290,
+            "img": "images/bouquet-15.jpg",
+            "badge": ""
+      },
+      {
+            "id": 16,
+            "name": "Красные розы XL",
+            "desc": "Эффектная корзина алых роз премиум-класса",
+            "price": 8990,
+            "img": "images/bouquet-16.jpg",
+            "badge": "XL"
+      },
+      {
+            "id": 17,
+            "name": "Белые розы",
+            "desc": "Классический букет белых роз в розовой упаковке",
+            "price": 3990,
+            "img": "images/bouquet-17.jpg",
+            "badge": ""
+      },
+      {
+            "id": 18,
+            "name": "Белоснежный микс",
+            "desc": "Белые розы и хризантемы в воздушной упаковке",
+            "price": 4590,
+            "img": "images/bouquet-18.jpg",
+            "badge": ""
+      },
+      {
+            "id": 19,
+            "name": "Розовый сад",
+            "desc": "Нежные розы и хризантемы в розово-белых тонах",
+            "price": 4890,
+            "img": "images/bouquet-19.jpg",
+            "badge": "New"
+      }
+];
+
+    const state = {
+      cart: JSON.parse(localStorage.getItem("luxe_cart_final") || "[]"),
+      favs: JSON.parse(localStorage.getItem("luxe_favs_final") || "[]")
+    };
+
+    function save() {
+      localStorage.setItem("luxe_cart_final", JSON.stringify(state.cart));
+      localStorage.setItem("luxe_favs_final", JSON.stringify(state.favs));
+    }
+
+    function money(n) {
+      return n.toLocaleString("ru-RU") + " ₽";
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = PRODUCTS.map(p => `
+        <article class="card">
+          <div class="photo">
+            ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
+            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/600x600/fff1f5/e84f7d?text=Фото+букета'">
+            <button class="fav ${state.favs.includes(p.id) ? "active" : ""}" onclick="toggleFav(${p.id})">♥</button>
+          </div>
+          <div class="body">
+            <div class="title">${p.name}</div>
+            <p class="desc">${p.desc}</p>
+            <div class="card-foot">
+              <div class="price">${money(p.price)}</div>
+              <button class="buy" onclick="addCart(${p.id})" title="Добавить в корзину">🛒</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function updateCounts() {
+      document.getElementById("cartCount").textContent = state.cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById("favCount").textContent = state.favs.length;
+    }
+
+    function addCart(id) {
+      const item = state.cart.find(x => x.id === id);
+      if (item) item.qty += 1;
+      else state.cart.push({ id, qty: 1 });
+      save();
+      updateCounts();
+      renderCart();
+      openCart();
+    }
+
+    function toggleFav(id) {
+      if (state.favs.includes(id)) state.favs = state.favs.filter(x => x !== id);
+      else state.favs.push(id);
+      save();
+      renderProducts();
+      updateCounts();
+    }
+
+    function openCart() {
+      document.getElementById("drawerBg").classList.add("open");
+      document.getElementById("cartDrawer").classList.add("open");
+      document.getElementById("favDrawer").classList.remove("open");
+      renderCart();
+    }
+
+    function openFav() {
+      document.getElementById("drawerBg").classList.add("open");
+      document.getElementById("favDrawer").classList.add("open");
+      document.getElementById("cartDrawer").classList.remove("open");
+      renderFav();
+    }
+
+    function closeDrawers() {
+      document.getElementById("drawerBg").classList.remove("open");
+      document.getElementById("cartDrawer").classList.remove("open");
+      document.getElementById("favDrawer").classList.remove("open");
+    }
+
+    function changeQty(id, delta) {
+      const item = state.cart.find(x => x.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) state.cart = state.cart.filter(x => x.id !== id);
+      save();
+      updateCounts();
+      renderCart();
+    }
+
+    function renderCart() {
+      const box = document.getElementById("cartContent");
+      if (!state.cart.length) {
+        box.innerHTML = '<div class="empty">Корзина пуста.<br>Добавьте букеты из каталога.</div>';
+        document.getElementById("total").textContent = "0 ₽";
+        return;
+      }
+
+      let total = 0;
+      box.innerHTML = state.cart.map(item => {
+        const p = PRODUCTS.find(x => x.id === item.id);
+        if (!p) return "";
+        total += p.price * item.qty;
+        return `
+          <div class="cart-row">
+            <div>
+              <b>${p.name}</b>
+              <small>${money(p.price)} × ${item.qty} = ${money(p.price * item.qty)}</small>
+              <div class="qty">
+                <button onclick="changeQty(${p.id}, -1)">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty(${p.id}, 1)">+</button>
+              </div>
+            </div>
+            <button class="remove" onclick="changeQty(${p.id}, -${item.qty})">Удалить</button>
+          </div>
+        `;
+      }).join("");
+      document.getElementById("total").textContent = money(total);
+    }
+
+    function renderFav() {
+      const box = document.getElementById("favContent");
+      if (!state.favs.length) {
+        box.innerHTML = '<div class="empty">В избранном пока ничего нет.</div>';
+        return;
+      }
+      box.innerHTML = state.favs.map(id => {
+        const p = PRODUCTS.find(x => x.id === id);
+        if (!p) return "";
+        return `
+          <div class="cart-row">
+            <div>
+              <b>${p.name}</b>
+              <small>${money(p.price)}</small>
+            </div>
+            <button class="buy" onclick="addCart(${p.id})">🛒</button>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function selectedExtras() {
+      return [...document.querySelectorAll(".extra-option input:checked")].map(x => x.value);
+    }
+
+    function sendWhatsApp() {
+      const extras = selectedExtras();
+      if (!state.cart.length && !extras.length) {
+        alert("Добавьте букет или выберите дополнение.");
+        return;
+      }
+
+      const city = document.getElementById("citySelect").value;
+      let total = 0;
+      let text = `Здравствуйте! Хочу оформить заказ в LUXE FLOWERS.\n\n📍 Город доставки: ${city}\n\n`;
+
+      if (state.cart.length) {
+        text += "🌸 Букеты:\n";
+        state.cart.forEach(item => {
+          const p = PRODUCTS.find(x => x.id === item.id);
+          if (!p) return;
+          total += p.price * item.qty;
+          text += `• ${p.name} — ${item.qty} шт. — ${money(p.price * item.qty)}\n`;
+        });
+        text += `\n💰 Итого за букеты: ${money(total)}\n`;
+      }
+
+      if (extras.length) {
+        text += "\n🎁 Дополнительно к заказу:\n";
+        extras.forEach(extra => text += `• ${extra} — уточнить цену\n`);
+      }
+
+      text += "\nПожалуйста, подтвердите наличие, стоимость дополнений и доставку.";
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`, "_blank");
+    }
+
+    renderProducts();
+    updateCounts();
+  </script>
+</body>
+</html>
